@@ -18,10 +18,14 @@ class ViewController: UIViewController {
 
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var progressBar: UIProgressView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.progressBar.isHidden = true
+        
         self.database = Database.database().reference().child("Moment1")
         
         self.database.observe(.value) { (snap) in
@@ -31,24 +35,45 @@ class ViewController: UIViewController {
             
             snap.children.forEach({ (element) in
                 urls.append((element as! DataSnapshot).value as! String)
-                print(urls[0])
             })
             
             self.elementURLs = urls
-            
-            print(self.elementURLs.count)
             self.collectionView.reloadData()
         }
-        
-        print(self.database.url)
-        
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        
     }
     
     private func uploadPhoto(data: Data){
+        let databaseRef:DatabaseReference = self.database.childByAutoId()
+        
+        let storageRef:StorageReference = Storage.storage().reference(withPath: "Moment1/\(databaseRef.key)")
+        let metadata:StorageMetadata = StorageMetadata()
+        
+        metadata.contentType = "image/jpeg"
+        
+        let uploadTask:StorageUploadTask = storageRef.putData(data, metadata: metadata) { (meta, err) in
+            if(err != nil){
+                print("Got an error: \(String(describing: err?.localizedDescription))")
+            }else{
+                print("Image uploaded! Metatdata: \(String(describing: meta))")
+                databaseRef.setValue(meta?.downloadURL()?.absoluteString)
+                
+            }
+        }
     
+        uploadTask.observe(.progress) { [weak self] (snap) in
+            //CODE HERE: To track upload progress of an image.
+            guard let strongSelf = self else{ return }
+            guard let progress = snap.progress else{ return }
+            
+            strongSelf.progressBar.isHidden = false
+            strongSelf.progressBar.progress = Float(progress.fractionCompleted)
+        }
+        uploadTask.observe(.success) { [weak self] (snap) in
+            guard let strongSelf = self else{ return }
+            
+            strongSelf.progressBar.progress = 0
+            strongSelf.progressBar.isHidden = true
+        }
     }
     
     private func uploadMovie(url: URL){
@@ -91,7 +116,6 @@ extension ViewController:UIImagePickerControllerDelegate,UINavigationControllerD
                 let imagedata = UIImageJPEGRepresentation(photo, 0.8) {
                 
                 uploadPhoto(data: imagedata)
-                
             }
             
         }else if mediaType == (kUTTypeMovie as String){
@@ -99,10 +123,9 @@ extension ViewController:UIImagePickerControllerDelegate,UINavigationControllerD
             if let url = info[UIImagePickerControllerMediaURL] as? URL{
                 
                 uploadMovie(url: url)
-                
             }
-            
         }
+        dismiss(animated: true, completion: nil)
      
     }
 
@@ -113,13 +136,13 @@ extension ViewController:UICollectionViewDataSource,UICollectionViewDelegate{
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return self.elementURLs.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell:ImageCollectionCell = (collectionView.dequeueReusableCell(withReuseIdentifier: "media_collection_cell", for: indexPath) as? ImageCollectionCell)!
         
-        cell.image.sd_setImage(with: URL(string: "https://firebasestorage.googleapis.com/v0/b/morel-moments.appspot.com/o/Moment1%2FIMG_0507.JPG?alt=media&token=4d19c184-9a5f-45b1-bdf9-75d8e7dc4d9f"), placeholderImage: #imageLiteral(resourceName: "Screen Shot 2017-11-13 at 2.02.59 PM"), options: [.continueInBackground,.progressiveDownload])
+        cell.image.sd_setImage(with: URL(string: self.elementURLs[indexPath.row]), placeholderImage: #imageLiteral(resourceName: "Screen Shot 2017-11-13 at 2.02.59 PM"), options: [.continueInBackground,.progressiveDownload])
         return cell
     }
 }
