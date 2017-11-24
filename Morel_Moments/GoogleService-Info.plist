@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>1050172671209-gagt63csr807r1tg4kgjvhkjt9m9d0ih.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1050172671209-gagt63csr807r1tg4kgjvhkjt9m9d0ih</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBuU54fNPuwn8YT9MSF7iXNOr6OueR3i_g</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1050172671209</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>hassamsolano.Morel-Moments</string>
+	<key>PROJECT_ID</key>
+	<string>morel-moments</string>
+	<key>STORAGE_BUCKET</key>
+	<string>morel-moments.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1050172671209:ios:6bc228e98fe703e7</string>
+	<key>DATABASE_URL</key>
+	<string>https://morel-moments.firebaseio.com</string>
+</dict>
+</plist>
