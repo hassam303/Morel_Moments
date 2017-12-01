@@ -8,12 +8,14 @@
 
 import UIKit
 import MobileCoreServices
+import CoreLocation
 import Firebase
 
 class ViewController: UIViewController {
     
    // private let storage: StorageReference = Storage.storage().reference().child("Moment1")
     private var elementURLs: [String] = []
+    private let location:CLLocationManager = CLLocationManager()
     var database: DatabaseReference!
 
 
@@ -26,8 +28,10 @@ class ViewController: UIViewController {
         self.collectionView.dataSource = self
         self.progressBar.isHidden = true
         
-        self.database = Database.database().reference().child("Moment1")
+        self.location.delegate = self
+        self.location.requestWhenInUseAuthorization()
         
+        self.database = Database.database().reference().child("Moment1")
         self.database.observe(.value) { (snap) in
             var urls:[String] = []
             
@@ -40,6 +44,11 @@ class ViewController: UIViewController {
             self.elementURLs = urls
             self.collectionView.reloadData()
         }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     private func uploadPhoto(data: Data){
@@ -79,13 +88,28 @@ class ViewController: UIViewController {
     private func uploadMovie(url: URL){
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    private func setUpGeoFence(){
+        let center:CLLocationCoordinate2D = CLLocationCoordinate2DMake(37.7834, -79.9352)
+        let region:CLCircularRegion = CLCircularRegion(center: center, radius: 400, identifier: "KingStreet_Store")
+        
+        region.notifyOnExit = true
+        region.notifyOnEntry = true
+        
+        self.location.requestLocation()
+        self.location.startMonitoring(for: region)
     }
+
+ 
+    
     @IBAction func didPressCameraButton(_ sender: Any) {
-        self.collectionView.reloadData()
+        let picker:UIImagePickerController = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .camera
+        picker.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+        picker.allowsEditing = true
+        
+        present(picker, animated: true, completion: nil)
     }
 
     @IBAction func didPressLibraryButton(_ sender: Any) {
@@ -128,11 +152,21 @@ extension ViewController:UIImagePickerControllerDelegate,UINavigationControllerD
         dismiss(animated: true, completion: nil)
      
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let dest:FullImageViewController = (segue.destination as! FullImageViewController)
+        let imageURL:String = sender as! String
+        
+        dest.imageURL = imageURL
+        
+    }
 
 }
 extension ViewController:UICollectionViewDataSource,UICollectionViewDelegate{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "toFullImageSegue", sender: self.elementURLs[indexPath.row])
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -145,4 +179,25 @@ extension ViewController:UICollectionViewDataSource,UICollectionViewDelegate{
         cell.image.sd_setImage(with: URL(string: self.elementURLs[indexPath.row]), placeholderImage: #imageLiteral(resourceName: "Screen Shot 2017-11-13 at 2.02.59 PM"), options: [.continueInBackground,.progressiveDownload])
         return cell
     }
+}
+
+extension ViewController:CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        
+    }
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        
+    }
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if (status == CLAuthorizationStatus.authorizedWhenInUse){
+            self.setUpGeoFence()
+        }
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        
+    }
+    
 }

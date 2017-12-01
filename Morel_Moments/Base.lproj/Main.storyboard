@@ -83,11 +83,36 @@
                     <connections>
                         <outlet property="collectionView" destination="0d8-Lv-oNP" id="G1V-JF-Qdn"/>
                         <outlet property="progressBar" destination="zjB-O6-Jcj" id="uy8-Nh-Cg1"/>
+                        <segue destination="bEK-tN-IRt" kind="presentation" identifier="toFullImageSegue" id="K1w-4g-HY2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-79.200000000000003" y="133.5832083958021"/>
+        </scene>
+        <!--Full Image View Controller-->
+        <scene sceneID="jLs-Mf-MpT">
+            <objects>
+                <viewController id="bEK-tN-IRt" customClass="FullImageViewController" customModule="Morel_Moments" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jxh-zE-O8X">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5kV-RA-u3p">
+                                <rect key="frame" x="16" y="20" width="343" height="627"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="eHL-78-3gF"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="5kV-RA-u3p" id="X2q-F0-BwZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qCM-cs-ixk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="783.20000000000005" y="133.5832083958021"/>
         </scene>
     </scenes>
 </document>

@@ -12,6 +12,7 @@
 		151FE6AC1FC7A01A006F3672 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 151FE6AA1FC7A01A006F3672 /* Main.storyboard */; };
 		151FE6AE1FC7A01A006F3672 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 151FE6AD1FC7A01A006F3672 /* Assets.xcassets */; };
 		151FE6B11FC7A01A006F3672 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 151FE6AF1FC7A01A006F3672 /* LaunchScreen.storyboard */; };
+		1536170F1FC8AF4D00E76AC2 /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1536170E1FC8AF4D00E76AC2 /* FullImageViewController.swift */; };
 		157C4EAA1FC7CF19005F23E9 /* ImageCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 157C4EA91FC7CF19005F23E9 /* ImageCollectionCell.swift */; };
 		15946F811FC7E466002E7A44 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15946F801FC7E466002E7A44 /* GoogleService-Info.plist */; };
 		4FE8E9532BAD782CADC6CB22 /* Pods_Morel_Moments.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D57CB80DD1D85E3093948A9 /* Pods_Morel_Moments.framework */; };
@@ -25,6 +26,7 @@
 		151FE6AD1FC7A01A006F3672 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		151FE6B01FC7A01A006F3672 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		151FE6B21FC7A01A006F3672 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1536170E1FC8AF4D00E76AC2 /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullImageViewController.swift; sourceTree = "<group>"; };
 		157C4EA91FC7CF19005F23E9 /* ImageCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionCell.swift; sourceTree = "<group>"; };
 		15946F791FC7DA2F002E7A44 /* Morel_Moments-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Morel_Moments-Bridging-Header.h"; sourceTree = "<group>"; };
 		15946F7D1FC7DAE9002E7A44 /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +72,7 @@
 				151FE6A61FC7A019006F3672 /* AppDelegate.swift */,
 				151FE6AD1FC7A01A006F3672 /* Assets.xcassets */,
 				151FE6A81FC7A01A006F3672 /* ViewController.swift */,
+				1536170E1FC8AF4D00E76AC2 /* FullImageViewController.swift */,
 				157C4EA91FC7CF19005F23E9 /* ImageCollectionCell.swift */,
 				151FE6AA1FC7A01A006F3672 /* Main.storyboard */,
 				151FE6AF1FC7A01A006F3672 /* LaunchScreen.storyboard */,
@@ -238,6 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				157C4EAA1FC7CF19005F23E9 /* ImageCollectionCell.swift in Sources */,
+				1536170F1FC8AF4D00E76AC2 /* FullImageViewController.swift in Sources */,
 				151FE6A91FC7A01A006F3672 /* ViewController.swift in Sources */,
 				151FE6A71FC7A019006F3672 /* AppDelegate.swift in Sources */,
 			);
